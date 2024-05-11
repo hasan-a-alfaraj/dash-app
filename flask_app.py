@@ -1,21 +1,19 @@
+# Import packages
+from dash import Dash, html, dash_table
+import pandas as pd
 
-# A very simple Flask Hello World app for you to get started with...
+# Incorporate data
+df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv')
 
-from flask import Flask
+# Initialize the app
+app = Dash(__name__)
 
-app = Flask(__name__)
+# App layout
+app.layout = html.Div([
+    html.Div(children='My First App with Data'),
+    dash_table.DataTable(data=df.to_dict('records'), page_size=10)
+])
 
-@app.route('/')
-def hello_world():
-    return 'Hello from Flask s!'
-
-@app.route('/login')
-def login():
-    return 'Welcom to login page!'
-
-# main driver function
+# Run the app
 if __name__ == '__main__':
- 
-    # run() method of Flask class runs the application 
-    # on the local development server.
     app.run(debug=True)
